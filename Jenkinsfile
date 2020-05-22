@@ -42,6 +42,11 @@ pipeline {
 				}
 			}
                 }
+		stage('Newman API Test'){
+                        steps{
+                        	sh 'newman run https://api.getpostman.com/collections/90f9a0b7-250a-4a67-b3be-1033b4e9c3a5?apikey=PMAK-5ea09512a43dd30042d2ab4c-5954bc31cc8eaafe21ab8c04a97f83e152 -e https://api.getpostman.com/environments/1bad5b00-c6aa-4d1a-97ba-0d325164189e?apikey=PMAK-5ea09512a43dd30042d2ab4c-5954bc31cc8eaafe21ab8c04a97f83e152 -n 1 --delay-request 500 --timeout-script 16000000 --insecure --reporters cli,htmlextra,json,junit --bail newman --timeout-request 18000000 --reporter-htmlextra-darkTheme --reporter-htmlextra-browserTitle 'RCI - Tests API' --reporter-htmlextra-title 'RCI - Tests API' --reporter-htmlextra-titleSize 5 --export-collection ./newman --export-environment ./newman'
+                        }
+                }		
 		stage('Deploy Frontend'){
 			steps{
 				dir('frontend'){
