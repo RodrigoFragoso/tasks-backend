@@ -1,7 +1,6 @@
 pipeline {
 	agent any
 	stages {
-		
 		stage ('Build Backend'){
 			steps{
 				sh 'mvn clean package -DskipTests=true'
@@ -12,7 +11,6 @@ pipeline {
 				sh 'mvn test'
 			}
 		}
-               
 		stage ('Sonar Analysis Tests'){
                         environment{
 				scannerHome = tool 'SONAR_SCANNER'
@@ -23,7 +21,6 @@ pipeline {
 				}
                         }
                 }
-		
 		stage ('Quality Gate'){
 			steps{
 				sleep(10)
