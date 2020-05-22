@@ -1,6 +1,7 @@
 pipeline {
 	agent any
 	stages {
+		
 		stage ('Build Backend'){
 			steps{
 				sh 'mvn clean package -DskipTests=true'
@@ -11,7 +12,8 @@ pipeline {
 				sh 'mvn test'
 			}
 		}
-               stage ('Sonar Analysis Tests'){
+               
+		stage ('Sonar Analysis Tests'){
                         environment{
 				scannerHome = tool 'SONAR_SCANNER'
 			}
@@ -21,8 +23,10 @@ pipeline {
 				}
                         }
                 }
-		stage (''){
+		
+		stage ('Quality Gate'){
 			steps{
+				sleep(10)
 				timeout(time: 1, unit: 'MINUTES'){
 					waitForQualityGate abortPipeline: true
 				}
